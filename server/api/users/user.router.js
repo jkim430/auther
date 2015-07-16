@@ -19,11 +19,6 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    console.log("HEYYYYYYYYYYYY", req.secure);
-    if(!req.secure){
-        res.redirect("https://localhost:8080/api/users");
-    }
-
     User.find({}).exec()
         .then(function(users) {
             res.json(users);
@@ -40,9 +35,6 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    if(req.secure){
-        res.redirect("http://localhost:4040/api/users/" + req.params.id);
-    }
     req.requestedUser.getStories().then(function(stories) {
         var obj = req.requestedUser.toObject();
         obj.stories = stories;
@@ -52,20 +44,18 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.put('/login', function(req, res, next) {
-    console.log('req.body', req.body);
-    User.findOne({
-        email: req.body.email,
-        password: req.body.password
-    }).exec().then(function(user) {
-        if (!user) throw "You don't exist";
-        res.json(user);
-    }).then(null, function(error) {
-        res.send(401);
-    });
+    User.loginAttempt(req.body)
+        .then(function(user) {
+            if (!user) throw "You don't exist";
+            console.log(user);
+            res.json(user);
+        }).then(null, function(error) {
+            console.log(error);
+            res.send(401);
+        });
 });
 
 router.put('/:id', function(req, res, next) {
-    console.log('req.body', req.body);
     _.extend(req.requestedUser, req.body);
     req.requestedUser.save()
         .then(function(user) {
