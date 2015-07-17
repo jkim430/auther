@@ -19,11 +19,7 @@ router.param('id', function(req, res, next, id) {
 });
 
 router.get('/', function(req, res, next) {
-    console.log("HEYYYYYYYYYYYY", req.secure);
-    if(!req.secure){
-        res.redirect("https://localhost:8080/api/users");
-    }
-
+    
     User.find({}).exec()
         .then(function(users) {
             res.json(users);
@@ -40,9 +36,7 @@ router.post('/', function(req, res, next) {
 });
 
 router.get('/:id', function(req, res, next) {
-    if(req.secure){
-        res.redirect("http://localhost:4040/api/users/" + req.params.id);
-    }
+    
     req.requestedUser.getStories().then(function(stories) {
         var obj = req.requestedUser.toObject();
         obj.stories = stories;
