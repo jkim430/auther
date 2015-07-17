@@ -1,8 +1,10 @@
 'use strict';
 
-app.controller('StoryListCtrl', function ($scope, stories, Story, users) {
+app.controller('StoryListCtrl', function ($scope, stories, Story, Auth, users) {
 	$scope.stories = stories;
 	$scope.users = users;
+
+	$scope.user = Auth.user;
 
 	$scope.newStory = new Story();
 	

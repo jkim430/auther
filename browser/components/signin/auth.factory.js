@@ -6,7 +6,8 @@ app.factory('Auth', function(User) {
             return new User(credentials).save();
         },
         login: function(credentials) {
-            return new User(credentials).save();
-        }
+        	return new User(credentials).save();
+        },
+        user: undefined
     }
 });

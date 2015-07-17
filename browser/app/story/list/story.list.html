@@ -19,7 +19,7 @@
 				<span class="glyphicon glyphicon-plus"></span>
 			</button>
 		</li>
-		<li ng-repeat="story in stories | filter:searchStory" class="list-group-item story-item">
+		<li ng-show="user" ng-repeat="story in stories | filter:searchStory" class="list-group-item story-item">
 			<span>
 				<h4><a ui-sref="story({id: story._id})">{{ story.title }}</a></h4>
 				<p>by <a ui-sref="user({id: story.author._id})">{{ story.author.name }}</a></p>

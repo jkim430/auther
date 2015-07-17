@@ -5,7 +5,7 @@ app.factory('Story', function ($http) {
 		angular.extend(this, props);
 	}
 
-	Story.url = '/api/stories/';
+	Story.url = '/api/membersOnly/stories/';
 
 	Object.defineProperty(Story.prototype, 'url', {
 		get: function () {

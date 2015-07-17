@@ -16,8 +16,7 @@ app.use(require('./sass.middleware'));
 app.use(require('./requestState.middleware'));
 
 app.use(function(req, res, next) {
-    if (!req.session.counter) req.session.counter = 0;
-    console.log('counter', ++req.session.counter);
+    
     console.log(req.session.userId);
     next();
 });

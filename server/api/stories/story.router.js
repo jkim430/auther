@@ -37,6 +37,16 @@ router.post('/', function (req, res, next) {
 	.then(null, next);
 });
 
+var isAuthenticated = function (req, res, next) {
+	console.log(req.session.userId, typeof req.session.userId);
+	if(!req.session.userId){
+		res.sendStatus(401);
+	}else{
+		next();
+	}
+}
+router.get("/:id", isAuthenticated);
+
 router.get('/:id', function (req, res, next) {
 	req.story.populateAsync('author')
 	.then(function (story) {

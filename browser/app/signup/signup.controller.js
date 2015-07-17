@@ -2,9 +2,6 @@
 
 app.controller('SignupCtrl', function($scope, Auth, $state) {
     $scope.signup = function() {
-        Auth.signup($scope.credentials)
-            .then(function() {
-                $state.go('stories');
-            });
+        Auth.signup($scope.credentials);
     }
 });

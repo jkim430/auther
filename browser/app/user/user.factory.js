@@ -50,6 +50,8 @@ app.factory('User', function($http, Story) {
         }
         return $http[verb](url, this).then(function(res) {
             return new User(res.data);
+        }, function(err){
+            return "unsuccessful";
         });
     };
 
