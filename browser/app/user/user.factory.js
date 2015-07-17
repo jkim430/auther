@@ -41,9 +41,9 @@ app.factory('User', function($http, Story) {
         if (this.isNew()) {
             verb = 'post';
             url = User.url;
-        } else if (this._id === "login") {
+        } else if (this._id === "login" || this._id === "logout") {
             verb = 'put';
-            url = User.url + "login"
+            url = User.url + this._id
         } else {
             verb = 'put';
             url = this.url;
