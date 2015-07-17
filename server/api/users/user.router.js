@@ -49,12 +49,17 @@ router.put('/login', function(req, res, next) {
     User.loginAttempt(req.body)
         .then(function(user) {
             if (!user) throw "You don't exist";
-            console.log(user);
+            req.session.userId = user.email;
             res.json(user);
         }).then(null, function(error) {
             console.log(error);
             res.send(401);
         });
+});
+
+router.put('/logout', function(req, res, next) {
+    req.session.userId = undefined;
+    res.send(200);
 });
 
 router.put('/:id', function(req, res, next) {
